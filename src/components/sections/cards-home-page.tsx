@@ -20,8 +20,8 @@ const cardsData = [
 const Cards = () => {
     return (
         <div className="m-0 grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-            {cardsData.map((card) => (
-                <Card key={card.title} className="flex flex-col transition-shadow duration-500 hover:shadow-lg">
+            {cardsData.map((card,i) => (
+                <Card key={card.title} className={`flex flex-col transition-shadow duration-500 hover:shadow-lg ${i == cardsData.length-1  && 'sm:col-span-2'} lg:col-span-1`}>
                     <CardHeader>
                         <CardTitle>{card.title}</CardTitle>
                     </CardHeader>
