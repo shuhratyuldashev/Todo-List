@@ -21,6 +21,9 @@ import favoriteTodosIcon from "../../assets/icons/Favorite-todos-icon.png";
 import completedTodosIcon from "../../assets/icons/Completed-todos-icon.png";
 import notCompletedTodosIcon from "../../assets/icons/Not-Completed-todos-icon.png";
 import { Link } from "react-router-dom";
+import AddTodoModal from "../logic/addTodoModal";
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import ArchiveTodosModal from "../logic/archiveTodosModal";
 
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
@@ -64,34 +67,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {data.navMain.map((item) => (
           <React.Fragment key={item.title}>
             <SidebarGroup>
-            <Separator className="bg-gray-200 h-[1px] mt-2" />
+              <Separator className="bg-gray-200 h-[1px] mt-2" />
               <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <Button className="font-semibold bg-[#555] hover:bg-[#444]">
-                    + Добавить задачу
-                  </Button>
+                    <AddTodoModal />
+
                   {item.items.map((subItem) => (
                     <SidebarMenuItem key={subItem.title}>
                       <SidebarMenuButton asChild>
                         <Link
-                            className="flex items-center font-semibold text-[#666] py-2.5 px-5 hover:bg-[#DCDCDC] hover:text-[#444]"
-                            to={subItem.url}
-                          >
-                            <img src={subItem.icon} alt={subItem.title} className="w- h-4 mr-2" />
-                            {subItem.title}
-                          </Link>
+                          className="flex items-center font-semibold text-[#666] py-2.5 px-5 hover:bg-[#DCDCDC] hover:text-[#444]"
+                          to={subItem.url}
+                        >
+                          <img src={subItem.icon} alt={subItem.title} className="w- h-4 mr-2" />
+                          {subItem.title}
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
-                   <Separator className="bg-gray-200 h-[1px] my-2" />
-                    <Button
-                      variant="destructive"
-                      className="flex items-center justify-center font-semibold bg-orange-100 text-[#FC3000] hover:bg-[#FC3000] hover:text-orange-100"
-                    >
-                      <HiMiniArchiveBoxArrowDown className="mr-2" />
-                      Архив задач
-                    </Button>
+
+                  <Separator className="bg-gray-200 h-[1px] my-2" />
+                  <ArchiveTodosModal />
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>

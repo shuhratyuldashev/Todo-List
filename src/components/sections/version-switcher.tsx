@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ChevronsUpDown } from "lucide-react"
 import { RiUser3Line } from "react-icons/ri";
 
@@ -15,8 +16,16 @@ import {
 
 import { Button } from "../ui/button";
 import searchTodosIcon from "../../assets/icons/Search-todos-icon.png";
+import ProfileModal from "../logic/profileModal";
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import { AlertDialog } from '@radix-ui/react-alert-dialog';
+import { AlertDialogTrigger } from '../ui/alert-dialog';
+import LogOutAlertDialog from '../logic/logoutAlertModal';
+import SearchTodosModal from '../logic/searchTodosModal';
 
 export function VersionSwitcher() {
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [isAlerLogOutOpen, setIsAlertLogOutOpen] = useState(false)
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -40,17 +49,43 @@ export function VersionSwitcher() {
             className="w-[--radix-dropdown-menu-trigger-width]"
             align="start"
           >
-            <DropdownMenuItem>Редактирировать профиль</DropdownMenuItem>
-            <DropdownMenuItem className="text-[#FF3000]">Выйти</DropdownMenuItem>
+            <Dialog open={isFormModalOpen} onOpenChange={setIsFormModalOpen}>
+              <DropdownMenuItem>
+                <DialogTrigger className="w-full text-start" onClick={(e) => {
+                  e.stopPropagation();
+                  setIsFormModalOpen(true);
+                }}>
+                  Редактировать профиль
+                </DialogTrigger>
+              </DropdownMenuItem>
+              {isFormModalOpen && <ProfileModal onClose={() => setIsFormModalOpen(false)} />}
+            </Dialog>
+            <AlertDialog open={isAlerLogOutOpen} onOpenChange={setIsAlertLogOutOpen}>
+              <DropdownMenuItem className="text-[#FF3000]">
+                <AlertDialogTrigger className='w-full text-start' onClick={(e) => {
+                  e.stopPropagation();
+                  setIsAlertLogOutOpen(true)
+                }}>
+                  Выйти
+                </AlertDialogTrigger>
+              </DropdownMenuItem>
+                {isAlerLogOutOpen && <LogOutAlertDialog />}
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
+
       <SidebarMenuItem>
         <SidebarMenuButton>
-          <Button variant="ghost" className="flex justify-start items-center w-full text-[#666]">
-            <img src={searchTodosIcon} alt="" className="w- h-4 mr-2" />
-            Поиск
-          </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="ghost" className="flex justify-start items-center w-full text-[#666]">
+                <img src={searchTodosIcon} alt="" className="w- h-4 mr-2" />
+                Поиск
+              </Button>
+            </DialogTrigger>
+            <SearchTodosModal />
+          </Dialog>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

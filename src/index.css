@@ -149,3 +149,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .btn-orange-light{
+    @apply bg-orange-100 text-[#FC3000]
+  }
+} 
