@@ -12,9 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Button } from "../ui/button";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import { HiMiniArchiveBoxArrowDown } from "react-icons/hi2";
 
 import allTodosIcon from "../../assets/icons/All-todos-icon.png";
 import favoriteTodosIcon from "../../assets/icons/Favorite-todos-icon.png";
@@ -22,8 +20,10 @@ import completedTodosIcon from "../../assets/icons/Completed-todos-icon.png";
 import notCompletedTodosIcon from "../../assets/icons/Not-Completed-todos-icon.png";
 import { Link } from "react-router-dom";
 import AddTodoModal from "../logic/addTodoModal";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import ArchiveTodosModal from "../logic/archiveTodosModal";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "../ui/dialog";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
 
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
@@ -71,8 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                    <AddTodoModal />
-
+                  <AddTodoModal/>
                   {item.items.map((subItem) => (
                     <SidebarMenuItem key={subItem.title}>
                       <SidebarMenuButton asChild>

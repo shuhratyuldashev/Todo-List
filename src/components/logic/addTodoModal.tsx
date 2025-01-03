@@ -1,7 +1,6 @@
-import { Dialog, DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
-import { DialogHeader } from '../ui/dialog'
-import { Label } from '@radix-ui/react-dropdown-menu'
+import { DialogHeader, Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 import { Button } from '../ui/button'
+import { Label } from '../ui/label'
 
 const AddTodoModal = () => {
     return (
@@ -11,7 +10,7 @@ const AddTodoModal = () => {
             + Добавить задачу
           </Button>
         </DialogTrigger>
-        <DialogContent className="fixed inset-0 z-50"> {/* Используем fixed для полноэкранного отображения и z-50 для верхнего слоя */}
+        <DialogContent> {/* Используем fixed для полноэкранного отображения и z-50 для верхнего слоя */}
           <DialogHeader>
             Добавить задачу
           </DialogHeader>
