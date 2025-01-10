@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ... */
+@layer utilities {
+  .btn-orange-light{
+    @apply bg-orange-100 text-[#FC3000]
+  }
+  .btn-black {
+    @apply bg-[#444] duration-300
+  }
+} 
 
 @layer base {
   :root {
@@ -142,7 +149,7 @@
 }
 
 @layer base {
-  * {
+  *{
     @apply border-border;
   }
   body {
@@ -150,8 +157,3 @@
   }
 }
 
-@layer utilities {
-  .btn-orange-light{
-    @apply bg-orange-100 text-[#FC3000]
-  }
-} 

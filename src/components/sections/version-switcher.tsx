@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { ChevronsUpDown } from "lucide-react"
-import { RiUser3Line } from "react-icons/ri";
+import { ChevronsUpDown, LogOut, Search, UserRound, UserRoundPen } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -15,13 +14,11 @@ import {
 } from "@/components/ui/sidebar"
 
 import { Button } from "../ui/button";
-import searchTodosIcon from "../../assets/icons/Search-todos-icon.png";
-import ProfileModal from "../logic/profileModal";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import { AlertDialog } from '@radix-ui/react-alert-dialog';
-import { AlertDialogTrigger } from '../ui/alert-dialog';
-import LogOutAlertDialog from '../logic/logoutAlertModal';
-import SearchTodosModal from '../logic/searchTodosModal';
+import ProfileModal from "../logic/modals/profileModal";
+import { Dialog, DialogTrigger } from "../ui/dialog";
+import { AlertDialogTrigger, AlertDialog } from '../ui/alert-dialog';
+import LogOutAlertDialog from '../logic/modals/logoutAlertModal';
+import SearchTodosModal from '../logic/modals/searchTodosModal';
 
 export function VersionSwitcher() {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -36,7 +33,7 @@ export function VersionSwitcher() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-[#444] text-sidebar-primary-foreground">
-                <RiUser3Line size={17}/>
+                <UserRound size={18}/>
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
                 <span className="font-semibold ">User Name</span>
@@ -51,22 +48,22 @@ export function VersionSwitcher() {
           >
             <Dialog open={isFormModalOpen} onOpenChange={setIsFormModalOpen}>
               <DropdownMenuItem>
-                <DialogTrigger className="w-full text-start" onClick={(e) => {
+                <DialogTrigger className="w-full text-start flex items-center gap-2.5 text-[#444]" onClick={(e) => {
                   e.stopPropagation();
                   setIsFormModalOpen(true);
                 }}>
-                  Редактировать профиль
+                  <UserRoundPen size={18}/>Редактировать профиль
                 </DialogTrigger>
               </DropdownMenuItem>
               {isFormModalOpen && <ProfileModal onClose={() => setIsFormModalOpen(false)} />}
             </Dialog>
             <AlertDialog open={isAlerLogOutOpen} onOpenChange={setIsAlertLogOutOpen}>
               <DropdownMenuItem className="text-[#FF3000]">
-                <AlertDialogTrigger className='w-full text-start' onClick={(e) => {
+                <AlertDialogTrigger className="w-full text-start flex items-center gap-2.5"  onClick={(e) => {
                   e.stopPropagation();
                   setIsAlertLogOutOpen(true)
                 }}>
-                  Выйти
+                  <LogOut size={18}/>Выйти
                 </AlertDialogTrigger>
               </DropdownMenuItem>
                 {isAlerLogOutOpen && <LogOutAlertDialog />}
@@ -76,17 +73,17 @@ export function VersionSwitcher() {
       </SidebarMenuItem>
 
       <SidebarMenuItem>
-        <SidebarMenuButton>
-          <Dialog>
-            <DialogTrigger>
+          <SidebarMenuButton>
+            <Dialog>
+              <DialogTrigger className='w-full'>
               <Button variant="ghost" className="flex justify-start items-center w-full text-[#666]">
-                <img src={searchTodosIcon} alt="" className="w- h-4 mr-2" />
+                <Search />
                 Поиск
               </Button>
-            </DialogTrigger>
+              </DialogTrigger>
             <SearchTodosModal />
           </Dialog>
-        </SidebarMenuButton>
+          </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
   )
